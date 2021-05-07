@@ -1,4 +1,4 @@
-var fileSelected = false;
+let fileSelected = false;
 
 function allowDrop(e) {
     e.preventDefault();
@@ -12,34 +12,37 @@ function handleDrop(e) {
     let dt = e.dataTransfer;
     let files = dt.files;
 
-    let filepath = files[0];
-    handleFile(filepath.name);
+    let input = document.getElementById('upload-input');
+    input.files = files;
+
+    handleFile(files[0].name);
+
 }
 
 function handleFile(filename){
-     addUploadButton(filename);
+     addUploadButton();
      fileSelected = true;
      showFileName(filename);
      console.log("File selected: "+filename)
 }
 
-function addUploadButton(filepath){
+function addUploadButton(){
     if(fileSelected==false){
-        var uploadButton = document.createElement("button");
+        const uploadButton = document.createElement("button");
         uploadButton.textContent = 'Upload file';
-        uploadButton.type='button';
+        uploadButton.type='submit';
         uploadButton.id = 'upload-button';
         uploadButton.addEventListener("click", uploadFile)
-        var buttonContainer = document.getElementById("buttons-container");
+        const buttonContainer = document.getElementById("buttons-container");
         buttonContainer.appendChild(uploadButton);
     }
 }
 
 function showFileName(filename){
     if(fileSelected==true & filename != null) {
-        var fileSpan = "<span id='filename'>" + filename + "</span>";
-        var targetElement = document.getElementById('filename');
-        var parentTarget = targetElement.parentNode;
+        const fileSpan = "<span id='filename'>" + filename + "</span>";
+        const targetElement = document.getElementById('filename');
+        const parentTarget = targetElement.parentNode;
         parentTarget.removeChild(targetElement);
         parentTarget.innerHTML = fileSpan + parentTarget.innerHTML;
     }
@@ -49,7 +52,7 @@ function selectFile() {
     console.log("Selecting file");
     document.getElementById("upload-input").click();
     document.getElementById('upload-input').onchange = function () {
-        let filename = this.value.replace(/^.*?([^\\\/]*)$/, '$1');
+        let filename=this.files[0].name;
         handleFile(filename);
     };
 };

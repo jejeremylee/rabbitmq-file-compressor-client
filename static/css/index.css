@@ -102,3 +102,13 @@ body{
 #upload-input{
  display: none;
 }
+
+.footer{
+    text-align: right;
+    font-weight: bold;
+    height: 10%;
+    margin-right:2%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
